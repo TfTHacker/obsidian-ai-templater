@@ -48,7 +48,6 @@
     "remark-preset-lint-markdown-style-guide": "^5.1.3",
     "remark-preset-lint-recommended": "^6.1.3",
     "remark-preset-prettier": "^2.0.1",
-    "templater-obsidian": "github:SilentVoid13/Templater",
     "ts-node": "^10.9.2",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.12",
@@ -57,6 +56,7 @@
     "obsidian": "1.5.7"
   },
   "dependencies": {
+    "templater-obsidian": "github:SilentVoid13/Templater",
     "openai": "^4.29.2"
   }
 }

@@ -4,14 +4,16 @@ import builtins from 'builtin-modules';
 import fs from 'fs';
 import console from 'console';
 
-fs.copyFile('manifest.json', 'build/manifest.json', (err) => {
-  if (err) console.log(err);
-});
-fs.copyFile('styles.css', 'build/styles.css', (err) => {
-  if (err) console.log(err);
-});
-
 const prod = process.argv[2] === 'production';
+
+if (!prod) {
+  fs.copyFile('manifest.json', 'build/manifest.json', (err) => {
+    if (err) console.log(err);
+  });
+  fs.copyFile('styles.css', 'build/styles.css', (err) => {
+    if (err) console.log(err);
+  });
+}
 
 const context = await esbuild.context({
   entryPoints: ['src/main.ts'],
@@ -30,14 +32,14 @@ const context = await esbuild.context({
     '@lezer/common',
     '@lezer/highlight',
     '@lezer/lr',
-    ...builtins,
+    ...builtins
   ],
   format: 'cjs',
   target: 'es2018',
   logLevel: 'info',
   sourcemap: prod ? false : 'inline',
   treeShaking: true,
-  outfile: 'build/main.js',
+  outfile: 'build/main.js'
 });
 
 if (prod) {

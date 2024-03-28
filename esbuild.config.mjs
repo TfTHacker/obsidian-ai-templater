@@ -6,17 +6,6 @@ import console from 'console';
 
 const prod = process.argv[2] === 'production';
 
-// if (!prod) {
-//   try {
-//     fs.copyFile('manifest.json', 'build/manifest.json', (err) => {
-//       if (err) console.log(err);
-//     });
-//     fs.copyFile('styles.css', 'build/styles.css', (err) => {
-//       if (err) console.log(err);
-//     });
-//   } catch (error) {}
-// }
-
 const context = await esbuild.context({
   entryPoints: ['src/main.ts'],
   bundle: true,
@@ -41,7 +30,7 @@ const context = await esbuild.context({
   logLevel: 'info',
   sourcemap: prod ? false : 'inline',
   treeShaking: true,
-  outfile: 'main.js'
+  outfile: 'build/main.js'
 });
 
 if (prod) {
@@ -49,5 +38,11 @@ if (prod) {
   await context.rebuild();
   process.exit(0);
 } else {
+  fs.copyFile('manifest.json', 'build/manifest.json', (err) => {
+    if (err) console.log(err);
+  });
+  fs.copyFile('styles.css', 'build/styles.css', (err) => {
+    if (err) console.log(err);
+  });
   await context.watch();
 }

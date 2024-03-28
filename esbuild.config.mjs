@@ -4,18 +4,20 @@ import builtins from 'builtin-modules';
 import fs from 'fs';
 import console from 'console';
 
+console.log(process.argv);
+
 const prod = process.argv[2] === 'production';
 
-if (!prod) {
-  try {
-    fs.copyFile('manifest.json', 'build/manifest.json', (err) => {
-      if (err) console.log(err);
-    });
-    fs.copyFile('styles.css', 'build/styles.css', (err) => {
-      if (err) console.log(err);
-    });
-  } catch (error) {}
-}
+// if (!prod) {
+//   try {
+//     fs.copyFile('manifest.json', 'build/manifest.json', (err) => {
+//       if (err) console.log(err);
+//     });
+//     fs.copyFile('styles.css', 'build/styles.css', (err) => {
+//       if (err) console.log(err);
+//     });
+//   } catch (error) {}
+// }
 
 const context = await esbuild.context({
   entryPoints: ['src/main.ts'],

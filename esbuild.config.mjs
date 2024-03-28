@@ -4,8 +4,6 @@ import builtins from 'builtin-modules';
 import fs from 'fs';
 import console from 'console';
 
-console.log(process.argv);
-
 const prod = process.argv[2] === 'production';
 
 // if (!prod) {
@@ -47,6 +45,7 @@ const context = await esbuild.context({
 });
 
 if (prod) {
+  console.log('Building for production');
   await context.rebuild();
   process.exit(0);
 } else {

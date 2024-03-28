@@ -53,10 +53,10 @@
     "typedoc": "^0.25.12",
     "typescript": "5.4.3",
     "monkey-around": "^3.0.0",
+    "templater-obsidian": "github:SilentVoid13/Templater",
     "obsidian": "1.5.7"
   },
   "dependencies": {
-    "templater-obsidian": "github:SilentVoid13/Templater",
     "openai": "^4.29.2"
   }
 }

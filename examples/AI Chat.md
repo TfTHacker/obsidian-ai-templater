@@ -32,10 +32,10 @@ function parseFile(fileContent) {
 
 async function getResponse(conversation) {
   const ai_response = await tp.ai.chat(conversation);
+  let response = '\n\n---\n_AI_' + '\n' + ai_response + '\n\n---\n**You**\n';
   if(tp.file.selection!='') response = tp.file.selection() + response;
   return response;
 }
-
 const conversation = parseFile(tp.ai.content_without_properties);
 const response = await getResponse(conversation);
 return response;

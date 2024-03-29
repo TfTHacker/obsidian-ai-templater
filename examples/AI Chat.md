@@ -1,8 +1,11 @@
-<%*
-// Simulates a "chat" like conversation with AI. Open a new file, and type in your initial request and then execute this 
-// template. The response will be inserted into the document and then you can type in your follow up prompt. Then execute this
-// template again. Repeat the proces to extend the conversation.
+# Description
 
+Simulates a "chat" like conversation with AI. Open a new file, and type in your initial request and then execute this template. The response will be inserted into the document and then you can type in your follow up prompt. Then execute this template again. Repeat the proces to extend the conversation.
+
+# Template Code
+
+```javascript
+<%*
 function parseFile(fileContent) {
   const chatBuilder = new ait.ChatBuilder();
   let currentSection = '';
@@ -40,3 +43,4 @@ const conversation = parseFile(tp.ai.content_without_properties);
 const response = await getResponse(conversation);
 return response;
 %>
+```

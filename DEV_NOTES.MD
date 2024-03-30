@@ -1,5 +1,8 @@
 DEV_NOTES.MD
 
-# Version Bump
+# Updating the version
 
-Version bump process by running _npm version patch_, _npm version minor_ or _npm version major_ after updating minAppVersion manually in manifest.json. The command will bump version in manifest.json and package.json, and add the entry for the new version to versions.json
+1. update pacakage.json version number
+2. npm run version (updates the manifest and version file)
+3. commit repo
+4. npm run githubaction (commits the version number tag to the repo and pushes it, which kicks of the github action to prepare the release)

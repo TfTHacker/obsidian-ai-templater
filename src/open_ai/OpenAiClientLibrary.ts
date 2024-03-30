@@ -75,9 +75,8 @@ export default class OpenAiApi {
     const maxCharacters = maxOutgoingCharacters ? maxOutgoingCharacters : this.plugin.settings.defaultMaxOutgoingCharacters;
     if (characterCount > maxCharacters) {
       new Notice(
-        `${this.plugin.APP_ABBREVIARTION}: Character count exceeds the limit of ${maxCharacters.toString()} for outgoing AI requests. 
-        This setting can be changed in Settings or as part of the command.`,
-        10000
+        `${this.plugin.APP_ABBREVIARTION}: Character count exceeds the limit of ${maxCharacters.toString()} for outgoing AI requests and the current character count is ${characterCount.toString()}. This setting can be changed in Settings or as part of the command.`,
+        15000
       );
       this.plugin.log(
         `chat', 'Character count exceeds limt. Defined limit is ${maxCharacters.toString()} and the current character count is ${characterCount.toString()}.`

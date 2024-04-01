@@ -1,3 +1,8 @@
+# Early Beta
+
+This plugin is in early beta, which means many features may still change. The plugin is stable, but I still need to
+finalize the function calls and internal API.
+
 # Intro
 
 I will be starting documentation soon. However this is a basic intro.

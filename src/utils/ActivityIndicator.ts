@@ -1,7 +1,7 @@
-// creates and removes a spinner element that is appended to the active workspace leaf's view header
+// creates and removes a visual indicator element that is appended to the active workspace leaf's view header
 // provides user feedback that the plugin is working on a AI task
 
-class Spinner {
+class ActivityIndicator {
   private spinner: HTMLDivElement | null = null;
   private timerId: NodeJS.Timeout | null = null;
 
@@ -44,4 +44,4 @@ class Spinner {
   }
 }
 
-export default Spinner;
+export default ActivityIndicator;

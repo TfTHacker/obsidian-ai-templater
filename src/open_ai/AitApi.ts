@@ -1,6 +1,7 @@
 // a global window object named ait for access to this plugin, plus access to the OpenAI client library
 
 /* eslint-disable import/no-named-as-default, @typescript-eslint/naming-convention -- for OpenAi export */
+import ActivityIndicator from 'src/utils/ActivityIndicator';
 import type AitPlugin from '../main';
 import type { Settings } from '../settings/settings';
 import ChatBuilder from './ChatBuilder';
@@ -12,11 +13,12 @@ declare global {
     ait?: {
       availableModels: () => Promise<string[]>;
       chat: (promptOrMessages: string | ChatCompletionMessageParam[]) => Promise<string>;
-      ChatBuilder: typeof ChatBuilder;
       defaultClientSettings: Settings;
       plugin: AitPlugin;
+      ActivityIndicator: typeof ActivityIndicator;
+      ChatBuilder: typeof ChatBuilder;
+      OpenAI: typeof OpenAI;
     };
-    OpenAI: typeof OpenAI;
   }
 }
 
@@ -27,7 +29,8 @@ export const setupAitApi = (plugin: AitPlugin) => {
     chat: plugin.openAiApi.chat,
     ChatBuilder: ChatBuilder,
     defaultClientSettings: plugin.settings,
-    plugin: plugin
+    plugin: plugin,
+    ActivityIndicator: ActivityIndicator,
+    OpenAI: OpenAI
   };
-  window.OpenAI = OpenAI;
 };

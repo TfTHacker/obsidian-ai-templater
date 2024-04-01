@@ -7,7 +7,7 @@ import { InternalModule } from 'templater-obsidian/src/core/functions/internal_f
 import type { ModuleName } from 'templater-obsidian/src/editor/TpDocumentation';
 import type { ChatCompletionMessageParam } from 'openai/resources';
 import type { TFile } from 'obsidian';
-import Spinner from '../utils/Spinner';
+import ActivityIndicator from '../utils/ActivityIndicator';
 
 export class InternalModuleAit extends InternalModule {
   // @ts-expect-error -- adding internal module to templater
@@ -73,7 +73,7 @@ export class InternalModuleAit extends InternalModule {
       apiKey?: string,
       organization?: string | null
     ) => {
-      const spinner = new Spinner();
+      const spinner = new ActivityIndicator();
       spinner.add();
       try {
         const result =

@@ -80,4 +80,4 @@ tp.ai.content_without_properties()
 
 This plugin also exposes the client library from OpenAI and by default uses the configuration information from the _AI for Templater_ plugin settings.
 
-This library can be accessed in the console or in Templater scripts with the object: `OpenAI`.
+This library can be accessed in the console or in Templater scripts with the object: `ait.OpenAI`.

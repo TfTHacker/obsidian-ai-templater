@@ -1,3 +1,7 @@
+# 1.0.5
+
+- Added the OpneAI undocumented toFile function. This is useful for uploading files to OpenAI.
+
 # 1.0.4
 
 - Exposed the ActivityIndicator class, which creates the spinning indicator that can be used when the user is waiting for a response from the api.

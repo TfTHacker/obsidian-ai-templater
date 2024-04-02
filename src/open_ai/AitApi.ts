@@ -6,6 +6,7 @@ import type AitPlugin from '../main';
 import type { Settings } from '../settings/settings';
 import ChatBuilder from './ChatBuilder';
 import OpenAI from 'openai';
+import { toFile } from 'openai/uploads';
 import type { ChatCompletionMessageParam } from 'openai/resources';
 
 declare global {
@@ -18,6 +19,7 @@ declare global {
       ActivityIndicator: typeof ActivityIndicator;
       ChatBuilder: typeof ChatBuilder;
       OpenAI: typeof OpenAI;
+      toFile: typeof toFile;
     };
   }
 }
@@ -31,6 +33,7 @@ export const setupAitApi = (plugin: AitPlugin) => {
     defaultClientSettings: plugin.settings,
     plugin: plugin,
     ActivityIndicator: ActivityIndicator,
-    OpenAI: OpenAI
+    OpenAI: OpenAI,
+    toFile: toFile
   };
 };

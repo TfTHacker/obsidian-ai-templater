@@ -1,3 +1,7 @@
+# 1.0.6
+
+- Restructured the ait API object. All the helper classes are now in a child object called `helpers`. This makes the API object cleaner and easier to use.
+
 # 1.0.5
 
 - Added the OpneAI undocumented toFile function. This is useful for uploading files to OpenAI.

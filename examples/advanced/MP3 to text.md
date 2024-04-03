@@ -10,16 +10,16 @@ This is a more advanced example that transcribes an MP3 file to text using OpenA
 
 const fileName = '/mp3-sample.mp3';
 
-const openai = new ait.OpenAI({
-  apiKey: ait.defaultClientSettings.defaultApiKey,
+const openai = new ait.helpers.OpenAI({
+  apiKey: ait.helpers.defaultClientSettings.defaultApiKey,
   dangerouslyAllowBrowser: true
 });
 
-const activityIndicator = new ait.ActivityIndicator();
+const activityIndicator = new ait.helpers.ActivityIndicator();
 try {
   activityIndicator.add();
   const fileBuffer = await app.vault.adapter.readBinary(fileName)
-  const fileStream = await ait.toFile(fileBuffer, 'audio.mp3');
+  const fileStream = await ait.helpers.toFile(fileBuffer, 'audio.mp3');
   const transcription = await openai.audio.transcriptions.create({
     file: fileStream,
     model: "whisper-1",

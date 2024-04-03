@@ -20,12 +20,12 @@ const size = "1024x1024"; // for dall-e-3: 1024x1024, 1792x1024, or 1024x1792 fo
 const style = "vivid";  // for dall-e-3: vivid or natural
 const quality = "standard";  // for dall-e-3: hd or standard
 
-const openai = new ait.OpenAI({
+const openai = new ait.helpers.OpenAI({
   apiKey: ait.defaultClientSettings.defaultApiKey,
   dangerouslyAllowBrowser: true
 });
 
-const activityIndicator = new ait.ActivityIndicator();
+const activityIndicator = new ait.helpers.ActivityIndicator();
 
 try {
   activityIndicator.add();

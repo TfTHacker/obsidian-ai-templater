@@ -7,7 +7,7 @@ Simulates a "chat" like conversation with AI. Open a new file, and type in your 
 ```javascript
 <%*
 function parseFile(fileContent) {
-  const chatBuilder = new ait.ChatBuilder();
+  const chatBuilder = new ait.helpers.ChatBuilder();
   let currentSection = '';
   let currentRole = 'user';
 

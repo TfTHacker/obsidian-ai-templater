@@ -15,11 +15,13 @@ declare global {
       availableModels: () => Promise<string[]>;
       chat: (promptOrMessages: string | ChatCompletionMessageParam[]) => Promise<string>;
       defaultClientSettings: Settings;
+      helpers: {
+        ActivityIndicator: typeof ActivityIndicator;
+        ChatBuilder: typeof ChatBuilder;
+        OpenAI: typeof OpenAI;
+        toFile: typeof toFile;
+      };
       plugin: AitPlugin;
-      ActivityIndicator: typeof ActivityIndicator;
-      ChatBuilder: typeof ChatBuilder;
-      OpenAI: typeof OpenAI;
-      toFile: typeof toFile;
     };
   }
 }
@@ -29,11 +31,13 @@ export const setupAitApi = (plugin: AitPlugin) => {
   window.ait = {
     availableModels: plugin.openAiApi.availableModels,
     chat: plugin.openAiApi.chat,
-    ChatBuilder: ChatBuilder,
     defaultClientSettings: plugin.settings,
-    plugin: plugin,
-    ActivityIndicator: ActivityIndicator,
-    OpenAI: OpenAI,
-    toFile: toFile
+    helpers: {
+      ActivityIndicator: ActivityIndicator,
+      ChatBuilder: ChatBuilder,
+      OpenAI: OpenAI,
+      toFile: toFile
+    },
+    plugin: plugin
   };
 };

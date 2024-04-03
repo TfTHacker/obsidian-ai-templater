@@ -22,8 +22,8 @@ const now = new Date();
 const dateString = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + '_' + now.getHours() + now.getMinutes() + now.getSeconds();
 const fileName = "/tts_" + dateString + ".mp3";
 
-const openai = new ait.OpenAI({
-  apiKey: ait.defaultClientSettings.defaultApiKey,
+const openai = new ait.helpers.helpers.OpenAI({
+  apiKey: ait.helpers.defaultClientSettings.defaultApiKey,
   dangerouslyAllowBrowser: true
 });
 

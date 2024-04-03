@@ -7,3 +7,7 @@ For example, in Templater, you can use the following command to ask ChatGPT a qu
 `<%tp.ai.chat("How far is the moon from the earth?")%>`
 
 For detailed instructions on the use of this plugin, please see: [https://tfthacker.com/AIT]
+
+Please note that this plugin requires an API key from OpenAI. You can get one by signing up at [https://beta.openai.com/signup/].
+
+Additionally, when you use this plugin, unless you have configured it to use a local LLM, it will make internt requests to the OpenAI API. Please be aware of this when using this plugin.

@@ -91,13 +91,13 @@ export class OWlSettingTab extends PluginSettingTab {
           await this.plugin.saveData(this.plugin.settings);
         });
         textEl.inputEl.rows = 6;
-        if (Platform.isIosApp) textEl.inputEl.style.width = '100%';
-        else if (Platform.isDesktopApp) {
-          textEl.inputEl.rows = 6;
-        }
+        // if (Platform.isIosApp) textEl.inputEl.style.width = '100%';
+        // else if (Platform.isDesktopApp) {
+        //   textEl.inputEl.rows = 6;
+        // }
       });
 
-    promotionalLinks(containerEl, true);
+    promotionalLinks(containerEl);
     containerEl.createEl('hr');
 
     containerEl.createEl('h1', { text: 'Debugging' });

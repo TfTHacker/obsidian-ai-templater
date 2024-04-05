@@ -6,7 +6,7 @@ import type AitPlugin from '../main';
 import { InternalModule } from 'templater-obsidian/src/core/functions/internal_functions/InternalModule';
 import type { ModuleName } from 'templater-obsidian/src/editor/TpDocumentation';
 import type { ChatCompletionMessageParam } from 'openai/resources';
-import type { TFile } from 'obsidian';
+import { TFile } from 'obsidian';
 import ActivityIndicator from '../utils/ActivityIndicator';
 
 export class InternalModuleAit extends InternalModule {
@@ -47,10 +47,16 @@ export class InternalModuleAit extends InternalModule {
   }
 
   async generate_content_without_properties(): Promise<string> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- target_file is a TFile
-    const file = this.config.target_file as TFile;
-    const fileContents = await this.plugin?.app.vault.read(file);
-    return fileContents ? fileContents.replace(/^---\n([\s\S]*?)\n---\n/, '') : '';
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- target_file is a valid property
+    if (this.config.target_file instanceof TFile) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access -- target_file is a valid property
+      const file = this.config.target_file;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- target_file is a valid property
+      const fileContents = await this.plugin?.app.vault.read(file);
+      return fileContents ? fileContents.replace(/^---\n([\s\S]*?)\n---\n/, '') : '';
+    } else {
+      throw new Error('target_file is not a TFile');
+    }
   }
 
   generate_run_chat(): (

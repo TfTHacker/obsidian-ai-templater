@@ -1,7 +1,7 @@
 {
   "name": "openaisdk",
-  "version": "1.0.7",
-  "description": "OpenAI SDK plugin for Obsidian.",
+  "version": "1.0.8",
+  "description": "AI for Templater plugin for Obsidian.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/TfTHacker/openai-sdk-obsidian.git"
+    "url": "git://github.com/TfTHacker/obsidian-ai-templater"
   },
   "devDependencies": {
     "@html-eslint/eslint-plugin": "^0.24.0",

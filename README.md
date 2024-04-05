@@ -1,6 +1,6 @@
 # Intro
 
-> This plugin is currently waiting review for addition to the Obsidia community plugins list. For now it can be installed with [BRAT](https://obsidian.md/plugins?id=obsidian42-brat)
+> This plugin is currently waiting review for addition to the Obsidian community plugins list. For now it can be installed with [BRAT](https://obsidian.md/plugins?id=obsidian42-brat)
 
 This plugin extends Templater to interact with large language models. It is primarily designed to work with OpenAI LLMs, like the ones used by ChatGPT, but is also compatible with any LLM that supports the OpenAI API.
 

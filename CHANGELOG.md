@@ -1,6 +1,10 @@
+# 1.0.9
+
+- Minor adjustments have been made in preparation for release to the community plugin list.
+
 # 1.0.6
 
-- Restructured the ait API object. All the helper classes are now in a child object called `helpers`. This makes the API object cleaner and easier to use.
+- Restructured the API object of ait. All the helper classes have been moved to a child object named `helpers`. This modification makes the API object cleaner and more user-friendly.
 
 # 1.0.5
 

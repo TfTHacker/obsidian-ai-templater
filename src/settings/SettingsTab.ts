@@ -53,7 +53,7 @@ export class OWlSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName('Max Tokens Per Request')
+      .setName('Max tokens per request')
       .setDesc(
         `Maximum number of tokens the AI can generate. This is a safety feature to prevent the AI from 
         running indefinitely. It also helps in managing costs.`
@@ -67,9 +67,9 @@ export class OWlSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName('Max Characters Per Outgoing Request')
+      .setName('Max characters per outgoing request')
       .setDesc(
-        `Each model calcualtes tokens differently. This setting controls how many characters can be sent 
+        `Each model calculates tokens differently. This setting controls how many characters can be sent 
         before a function call fails. This is not the same as token count, but is a safety measure to 
         prevent large amounts of text being sent and potentially large costs being incurred.`
       )
@@ -82,7 +82,7 @@ export class OWlSettingTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName('System Message')
+      .setName('System message')
       .setDesc(`Default system message sent with each prompt. This message is used to initialize the conversation.`)
       .setClass('ait-settings')
       .addTextArea((textEl) => {
@@ -100,7 +100,7 @@ export class OWlSettingTab extends PluginSettingTab {
     promotionalLinks(containerEl);
     containerEl.createEl('hr');
 
-    containerEl.createEl('h1', { text: 'Debugging' });
+    new Setting(containerEl).setName('Debugging').setHeading();
 
     new Setting(containerEl)
       .setName(`Debug to the console`)

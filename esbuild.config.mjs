@@ -6,6 +6,20 @@ import console from 'console';
 
 const prod = process.argv[2] === 'production';
 
+const originalEmit = process.emit;
+process.emit = function (name, data, ...args) {
+  if (
+    name === `warning` &&
+    typeof data === `object` &&
+    data.name === `ExperimentalWarning`
+    //if you want to only stop certain messages, test for the message here:
+    //&& data.message.includes(`Fetch API`)
+  ) {
+    return false;
+  }
+  return originalEmit.apply(process, arguments);
+};
+
 const context = await esbuild.context({
   entryPoints: ['src/main.ts'],
   bundle: true,

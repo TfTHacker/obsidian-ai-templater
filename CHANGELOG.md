@@ -1,3 +1,7 @@
+# 1.0.10
+
+- chore: update all dependencies.
+
 # 1.0.9
 
 - Minor adjustments have been made in preparation for release to the community plugin list.

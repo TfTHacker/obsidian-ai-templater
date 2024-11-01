@@ -1,52 +1,50 @@
 /* CSS for SettingsTab */
 .ait-settings .setting-item-description {
-  width: 300px;
+	width: 300px;
 }
 
 .ait-settings .setting-item-control {
-  width: 100% !important;
+	width: 100% !important;
 }
 
 .ait-settings .setting-item-control input,
 .ait-settings .setting-item-control textarea {
-  width: 100%;
+	width: 100%;
 }
 
 /* Promotional Links */
 .ait-promotional-links {
-  float: right;
-  padding: 15px;
-
+	float: right;
+	padding: 15px;
 }
 
 /* Spinkit https://github.com/tobiasahlin/SpinKit?tab=readme-ov-file */
 .ait-spinner {
-  width: 20px;
-  position: absolute;
-  right: 10px;
+	width: 20px;
+	position: absolute;
+	right: 10px;
 }
 
-.ait-spinner>div {
-  width: 20px;
-  height: 10px;
-  background-color: var(--background-modifier-border-focus);
-  border-radius: 30%;
-  animation: oil-sk-bouncedelay 1.4s infinite ease-in-out both;
+.ait-spinner > div {
+	width: 20px;
+	height: 10px;
+	background-color: var(--background-modifier-border-focus);
+	border-radius: 30%;
+	animation: oil-sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
 .ait-spinner .oil-bounce {
-  animation-delay: var(--bounce-delay);
+	animation-delay: var(--bounce-delay);
 }
 
 @keyframes oil-sk-bouncedelay {
+	0%,
+	80%,
+	100% {
+		transform: scale(0);
+	}
 
-  0%,
-  80%,
-  100% {
-    transform: scale(0);
-  }
-
-  40% {
-    transform: scale(1);
-  }
+	40% {
+		transform: scale(1);
+	}
 }

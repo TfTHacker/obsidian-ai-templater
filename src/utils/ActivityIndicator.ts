@@ -2,46 +2,48 @@
 // provides user feedback that the plugin is working on a AI task
 
 class ActivityIndicator {
-  private spinner: HTMLDivElement | null = null;
-  private timerId: NodeJS.Timeout | null = null;
+	private spinner: HTMLDivElement | null = null;
+	private timerId: NodeJS.Timeout | null = null;
 
-  add(): void {
-    // Create the parent div
-    this.spinner = document.createElement('div');
-    this.spinner.className = 'ait-spinner';
+	add(): void {
+		// Create the parent div
+		this.spinner = document.createElement("div");
+		this.spinner.className = "ait-spinner";
 
-    // Create the child divs
-    const bounceDelays = ['-0.42s', '-0.36s', '-0.16s', '0s'];
-    bounceDelays.forEach((delay) => {
-      const bounce = document.createElement('div');
-      bounce.className = 'oil-bounce';
-      bounce.style.setProperty('--bounce-delay', delay);
-      this.spinner?.appendChild(bounce);
-    });
+		// Create the child divs
+		const bounceDelays = ["-0.42s", "-0.36s", "-0.16s", "0s"];
+		for (const delay of bounceDelays) {
+			const bounce = document.createElement("div");
+			bounce.className = "oil-bounce";
+			bounce.style.setProperty("--bounce-delay", delay);
+			this.spinner?.appendChild(bounce);
+		}
 
-    // Append the spinner to the active workspace leaf's view header
-    const activeViewHeader = document.querySelector('.workspace-leaf.mod-active .cm-scroller');
-    if (activeViewHeader) activeViewHeader.after(this.spinner);
+		// Append the spinner to the active workspace leaf's view header
+		const activeViewHeader = document.querySelector(
+			".workspace-leaf.mod-active .cm-scroller",
+		);
+		if (activeViewHeader) activeViewHeader.after(this.spinner);
 
-    // Remove the spinner after a brief period in case the task gets stuck
-    this.timerId = setTimeout(() => {
-      this.remove();
-    }, 120000);
-  }
+		// Remove the spinner after a brief period in case the task gets stuck
+		this.timerId = setTimeout(() => {
+			this.remove();
+		}, 120000);
+	}
 
-  remove(): void {
-    // Clear the timer if it's still running
-    if (this.timerId) {
-      clearTimeout(this.timerId);
-      this.timerId = null;
-    }
+	remove(): void {
+		// Clear the timer if it's still running
+		if (this.timerId) {
+			clearTimeout(this.timerId);
+			this.timerId = null;
+		}
 
-    // Remove the spinner
-    if (this.spinner) {
-      this.spinner.remove();
-      this.spinner = null;
-    }
-  }
+		// Remove the spinner
+		if (this.spinner) {
+			this.spinner.remove();
+			this.spinner = null;
+		}
+	}
 }
 
 export default ActivityIndicator;

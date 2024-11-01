@@ -1,3 +1,13 @@
+# 1.0.11
+
+### Updates
+- Updating plugin to newest Obsidian recommendations https://docs.obsidian.md/oo24/plugin.
+- The internal command names have been renamed. Any plugins using these internal command names will need to be updated.
+- Transition to Biome from EsLint and Prettier.
+- The output log file format for when debugging is enabled in BRAT has changed. It now appends to the log file, not prepends.
+
+
+
 # 1.0.10
 
 - chore: update all dependencies.

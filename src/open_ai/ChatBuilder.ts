@@ -9,33 +9,39 @@
 // });
 
 export default class ChatBuilder {
-  public chatMessages: { role: string; content: string }[] = [];
+	public chatMessages: { role: string; content: string }[] = [];
 
-  constructor(systemMessage = 'You are a helpful assistant.') {
-    this.chatMessages.push({ role: 'system', content: systemMessage });
-  }
+	constructor(systemMessage = "You are a helpful assistant.") {
+		this.chatMessages.push({ role: "system", content: systemMessage });
+	}
 
-  setSystemMessage(content: string) {
-    // If a system message already exists, overwrite it
-    this.chatMessages[0].content = content;
-    return this;
-  }
+	setSystemMessage(content: string) {
+		// If a system message already exists, overwrite it
+		this.chatMessages[0].content = content;
+		return this;
+	}
 
-  addUserInput(content: string) {
-    if (this.chatMessages.length === 0 || this.chatMessages[this.chatMessages.length - 1].role !== 'user') {
-      this.chatMessages.push({ role: 'user', content });
-    } else {
-      throw new Error('Cannot add two user inputs in a row');
-    }
-    return this;
-  }
+	addUserInput(content: string) {
+		if (
+			this.chatMessages.length === 0 ||
+			this.chatMessages[this.chatMessages.length - 1].role !== "user"
+		) {
+			this.chatMessages.push({ role: "user", content });
+		} else {
+			throw new Error("Cannot add two user inputs in a row");
+		}
+		return this;
+	}
 
-  addAssistantReply(content: string) {
-    if (this.chatMessages.length === 0 || this.chatMessages[this.chatMessages.length - 1].role !== 'assistant') {
-      this.chatMessages.push({ role: 'assistant', content });
-    } else {
-      throw new Error('Cannot add two assistant replies in a row');
-    }
-    return this;
-  }
+	addAssistantReply(content: string) {
+		if (
+			this.chatMessages.length === 0 ||
+			this.chatMessages[this.chatMessages.length - 1].role !== "assistant"
+		) {
+			this.chatMessages.push({ role: "assistant", content });
+		} else {
+			throw new Error("Cannot add two assistant replies in a row");
+		}
+		return this;
+	}
 }

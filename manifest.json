@@ -1,8 +1,8 @@
 {
 	"id": "ai-templater",
 	"name": "AI for Templater",
-	"version": "1.0.10",
-	"minAppVersion": "1.5.11",
+	"version": "1.0.11",
+	"minAppVersion": "1.7.2",
 	"description": "AI Extension for the Templater plugin with the OpenAI Client Library.",
 	"author": "TfTHacker",
 	"authorUrl": "https://tfthacker.com/",

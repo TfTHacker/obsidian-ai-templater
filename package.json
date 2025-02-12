@@ -21,7 +21,7 @@
 		"@types/node": "^22.5.1",
 		"@types/obsidian-typings": "github:Fevol/obsidian-typings",
 		"builtin-modules": "4.0.0",
-		"esbuild": "0.24.0",
+		"esbuild": "0.25.0",
 		"monkey-around": "^3.0.0",
 		"obsidian": "1.7.2",
 		"templater-obsidian": "github:SilentVoid13/Templater",

@@ -1,7 +1,8 @@
-# 1.0.12
+# 1.0.14
 ### Updates
 - update for support for gpt5
 - updated dependencies
+- fixed stylesheet issues
 
 # 1.0.11
 

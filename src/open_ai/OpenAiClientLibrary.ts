@@ -101,7 +101,7 @@ export default class OpenAiApi {
 			const completion = await openai.chat.completions.create({
 				messages: messages,
 				model: model ?? this.plugin.settings.defaultModel,
-				max_tokens: maxTokens ?? this.plugin.settings.defaultMaxNumTokens,
+				max_completion_tokens: maxTokens ?? this.plugin.settings.defaultMaxNumTokens,
 			});
 
 			if (this.plugin.settings.debugToConsole) {

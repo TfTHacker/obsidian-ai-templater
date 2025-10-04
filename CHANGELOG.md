@@ -1,3 +1,8 @@
+# 1.0.12
+### Updates
+- update for support for gpt5
+- updated dependencies
+
 # 1.0.11
 
 ### Updates

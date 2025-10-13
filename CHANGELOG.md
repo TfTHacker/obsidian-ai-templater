@@ -1,3 +1,8 @@
+# 1.0.15
+### Updates
+- rolled back to gpt-4-turbo as default
+- updated dependencies
+
 # 1.0.14
 ### Updates
 - update for support for gpt5

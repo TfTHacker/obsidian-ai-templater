@@ -12,7 +12,7 @@ export interface Settings {
 
 export const DEFAULT_SETTINGS: Settings = {
 	defaultEndpoint: "",
-	defaultModel: "gpt-5-nano",
+	defaultModel: "gpt-4-turbo",
 	defaultApiKey: "",
 	defaultMaxOutgoingCharacters: 4096,
 	defaultMaxNumTokens: 1024,

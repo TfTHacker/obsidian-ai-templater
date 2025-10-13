@@ -1,6 +1,6 @@
 {
 	"name": "openaisdk",
-	"version": "1.0.14",
+	"version": "1.0.15",
 	"description": "AI for Templater plugin for Obsidian.",
 	"main": "main.js",
 	"scripts": {
@@ -18,7 +18,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.5",
-		"@types/node": "^24.6.2",
+		"@types/node": "^24.7.2",
 		"@types/obsidian-typings": "github:Fevol/obsidian-typings",
 		"builtin-modules": "5.0.0",
 		"esbuild": "0.25.10",
@@ -27,10 +27,10 @@
 		"templater-obsidian": "github:SilentVoid13/Templater",
 		"ts-node": "^10.9.2",
 		"tslib": "^2.8.1",
-		"typedoc": "0.28.13",
+		"typedoc": "0.28.14",
 		"typescript": "5.9.3"
 	},
 	"dependencies": {
-		"openai": "^6.1.0"
+		"openai": "^6.3.0"
 	}
 }

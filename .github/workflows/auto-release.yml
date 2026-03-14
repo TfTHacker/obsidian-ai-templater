@@ -1,0 +1,62 @@
+name: Auto Release on Dependency Updates
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bump_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "21.x"
+      - name: Determine whether to bump
+        id: gate
+        run: |
+          set -euo pipefail
+          commit_msg="$(git log -1 --pretty=%s)"
+          if [[ "$commit_msg" == chore\\(release\\):* ]]; then
+            echo "should_bump=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
+          if echo "$changed" | grep -Eq '^(package.json|package-lock.json|pnpm-lock.yaml|yarn.lock)$'; then
+            echo "should_bump=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_bump=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Bump version and tag
+        if: steps.gate.outputs.should_bump == 'true'
+        run: |
+          set -euo pipefail
+          npm version patch --no-git-tag-version
+          npm run version
+          version="$(node -p "require('./package.json').version")"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json manifest.json versions.json
+          git commit -m "chore(release): v${version}"
+          git tag -a "${version}" -m "${version}"
+          git push origin HEAD:main --tags
+      - name: Build and create release
+        if: steps.gate.outputs.should_bump == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          npm install
+          npm run build
+          version="$(node -p "require('./package.json').version")"
+          gh release create "${version}" \
+            --title="${version}" \
+            build/main.js manifest.json styles.css

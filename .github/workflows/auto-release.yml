@@ -44,11 +44,14 @@ jobs:
           if [[ -z "$base" || "$base" == "0000000000000000000000000000000000000000" ]]; then
             base="$(git rev-parse HEAD^)"
           fi
+          echo "base_ref=$base" >> "$GITHUB_OUTPUT"
           changed="$(git diff --name-only "$base" "${{ github.sha }}")"
           if echo "$changed" | grep -Eq '^(package.json|package-lock.json|pnpm-lock.yaml|yarn.lock)$'; then
             echo "should_bump=true" >> "$GITHUB_OUTPUT"
+            echo "deps_changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "should_bump=false" >> "$GITHUB_OUTPUT"
+            echo "deps_changed=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Bump version and tag
         if: steps.gate.outputs.should_bump == 'true'
@@ -62,9 +65,60 @@ jobs:
             npm run version
             version="$(node -p "require('./package.json').version")"
           done
+          changelog_tmp="$(mktemp)"
+          deps_list=""
+          if [[ "${{ steps.gate.outputs.deps_changed }}" == "true" ]]; then
+            deps_list="$(BASE_REF="${{ steps.gate.outputs.base_ref }}" node - <<'NODE'
+          const fs = require("fs");
+          const { execSync } = require("child_process");
+          const base = process.env.BASE_REF;
+          function readAt(ref) {
+            return JSON.parse(execSync(`git show ${ref}:package.json`, { encoding: "utf8" }));
+          }
+          const curr = JSON.parse(fs.readFileSync("package.json", "utf8"));
+          const prev = readAt(base);
+          function diffDeps(p, c, key) {
+            const a = p[key] || {};
+            const b = c[key] || {};
+            const names = new Set([...Object.keys(a), ...Object.keys(b)]);
+            const changes = [];
+            for (const name of names) {
+              if (a[name] !== b[name]) {
+                changes.push({ name, from: a[name] || "added", to: b[name] || "removed" });
+              }
+            }
+            return changes;
+          }
+          const changes = [
+            ...diffDeps(prev, curr, "dependencies"),
+            ...diffDeps(prev, curr, "devDependencies"),
+            ...diffDeps(prev, curr, "peerDependencies"),
+            ...diffDeps(prev, curr, "optionalDependencies"),
+          ];
+          for (const c of changes) {
+            console.log(`- ${c.name}: ${c.from} -> ${c.to}`);
+          }
+NODE
+            )"
+          fi
+          {
+            echo "# ${version}"
+            echo "### Updates"
+            if [[ "${{ steps.gate.outputs.deps_changed }}" == "true" ]]; then
+              echo "- updated dependencies"
+              if [[ -n "$deps_list" ]]; then
+                echo "$deps_list"
+              fi
+            else
+              echo "- automated release"
+            fi
+            echo ""
+            cat CHANGELOG.md
+          } > "$changelog_tmp"
+          mv "$changelog_tmp" CHANGELOG.md
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add package.json manifest.json versions.json
+          git add package.json manifest.json versions.json CHANGELOG.md
           git commit -m "chore(release): v${version}"
           git tag -a "${version}" -m "${version}"
           git push origin HEAD:main --tags

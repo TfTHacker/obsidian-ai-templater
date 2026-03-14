@@ -1,6 +1,6 @@
 {
 	"name": "openaisdk",
-	"version": "1.0.15",
+	"version": "1.0.16",
 	"description": "AI for Templater plugin for Obsidian.",
 	"main": "main.js",
 	"scripts": {

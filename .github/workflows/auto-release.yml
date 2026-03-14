@@ -68,38 +68,7 @@ jobs:
           changelog_tmp="$(mktemp)"
           deps_list=""
           if [[ "${{ steps.gate.outputs.deps_changed }}" == "true" ]]; then
-            deps_list="$(BASE_REF="${{ steps.gate.outputs.base_ref }}" node - <<'NODE'
-          const fs = require("fs");
-          const { execSync } = require("child_process");
-          const base = process.env.BASE_REF;
-          function readAt(ref) {
-            return JSON.parse(execSync(`git show ${ref}:package.json`, { encoding: "utf8" }));
-          }
-          const curr = JSON.parse(fs.readFileSync("package.json", "utf8"));
-          const prev = readAt(base);
-          function diffDeps(p, c, key) {
-            const a = p[key] || {};
-            const b = c[key] || {};
-            const names = new Set([...Object.keys(a), ...Object.keys(b)]);
-            const changes = [];
-            for (const name of names) {
-              if (a[name] !== b[name]) {
-                changes.push({ name, from: a[name] || "added", to: b[name] || "removed" });
-              }
-            }
-            return changes;
-          }
-          const changes = [
-            ...diffDeps(prev, curr, "dependencies"),
-            ...diffDeps(prev, curr, "devDependencies"),
-            ...diffDeps(prev, curr, "peerDependencies"),
-            ...diffDeps(prev, curr, "optionalDependencies"),
-          ];
-          for (const c of changes) {
-            console.log(`- ${c.name}: ${c.from} -> ${c.to}`);
-          }
-NODE
-            )"
+            deps_list="$(BASE_REF="${{ steps.gate.outputs.base_ref }}" node -e 'const fs=require(\"fs\");const {execSync}=require(\"child_process\");const base=process.env.BASE_REF;function readAt(ref){return JSON.parse(execSync(\"git show \"+ref+\":package.json\",{encoding:\"utf8\"}));}const curr=JSON.parse(fs.readFileSync(\"package.json\",\"utf8\"));const prev=readAt(base);function diffDeps(p,c,key){const a=p[key]||{};const b=c[key]||{};const names=new Set([...Object.keys(a),...Object.keys(b)]);const changes=[];for(const name of names){if(a[name]!==b[name]){changes.push({name,from:a[name]||\"added\",to:b[name]||\"removed\"});}}return changes;}const changes=[...diffDeps(prev,curr,\"dependencies\"),...diffDeps(prev,curr,\"devDependencies\"),...diffDeps(prev,curr,\"peerDependencies\"),...diffDeps(prev,curr,\"optionalDependencies\")];for(const c of changes){console.log(\"- \"+c.name+\": \"+c.from+\" -> \"+c.to);}');"
           fi
           {
             echo "# ${version}"

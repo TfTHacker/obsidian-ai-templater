@@ -91,9 +91,15 @@ jobs:
           git commit -m "chore(release): v${version}"
           git tag -a "${version}" -m "${version}"
           git push origin HEAD:main --tags
-      - name: Verify build
+      - name: Build and create release
         if: steps.gate.outputs.should_bump == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           npm install
           npm run build
+          version="$(node -p "require('./package.json').version")"
+          gh release create "${version}" \
+            --title="${version}" \
+            build/main.js manifest.json styles.css

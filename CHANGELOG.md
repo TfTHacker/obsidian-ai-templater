@@ -1,3 +1,7 @@
+# 1.0.19
+### Updates
+- automated release
+
 # 1.0.18
 ### Updates
 - automated release

@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       force_bump:
@@ -29,6 +34,30 @@ jobs:
         id: gate
         run: |
           set -euo pipefail
+          if [[ "${{ github.event_name }}" == "pull_request_target" ]]; then
+            if [[ "${{ github.event.pull_request.merged }}" != "true" ]]; then
+              echo "should_bump=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [[ "${{ github.event.pull_request.user.login }}" != "dependabot[bot]" ]]; then
+              echo "should_bump=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [[ "${{ github.event.pull_request.merged_by.login }}" != "app/github-actions" ]]; then
+              echo "should_bump=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            changed="$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.merge_commit_sha }}")"
+            echo "base_ref=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
+            if echo "$changed" | grep -Eq '^(package.json|package-lock.json|pnpm-lock.yaml|yarn.lock)$'; then
+              echo "should_bump=true" >> "$GITHUB_OUTPUT"
+              echo "deps_changed=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "should_bump=false" >> "$GITHUB_OUTPUT"
+              echo "deps_changed=false" >> "$GITHUB_OUTPUT"
+            fi
+            exit 0
+          fi
           commit_msg="$(git log -1 --pretty=%s)"
           case "$commit_msg" in
             "chore(release):"*)

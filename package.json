@@ -17,7 +17,7 @@
 		"url": "git://github.com/TfTHacker/obsidian-ai-templater"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.10",
+		"@biomejs/biome": "2.4.11",
 		"@types/node": "^25.5.0",
 		"@types/obsidian-typings": "github:Fevol/obsidian-typings",
 		"builtin-modules": "5.0.0",

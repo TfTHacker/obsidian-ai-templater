@@ -20,7 +20,7 @@
 		"@biomejs/biome": "2.4.10",
 		"@types/node": "^25.5.0",
 		"@types/obsidian-typings": "github:Fevol/obsidian-typings",
-		"builtin-modules": "5.0.0",
+		"builtin-modules": "5.1.0",
 		"esbuild": "0.28.0",
 		"monkey-around": "^3.0.0",
 		"obsidian": "1.12.3",

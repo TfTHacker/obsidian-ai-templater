@@ -3,13 +3,79 @@
 	width: 300px;
 }
 
-.ait-settings .setting-item-control {
-	width: 50% !important;
+.settings-tab .ait-settings .setting-item-control {
+    width: 50%;
 }
 
 .ait-settings .setting-item-control input,
 .ait-settings .setting-item-control textarea {
 	width: 100%;
+}
+
+.ait-saved-list {
+	margin: 0 0 18px;
+}
+
+.ait-saved-list-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 6px 0;
+}
+
+.ait-saved-list-value {
+	flex: 1;
+	overflow-wrap: anywhere;
+}
+
+.ait-saved-list-empty {
+	color: var(--text-muted);
+	font-style: italic;
+}
+
+.ait-settings .ait-add-toggle {
+	padding: var(--size-2-2) var(--size-2-3);
+}
+
+.settings-tab .ait-settings .setting-item-control {
+	width: 100%;
+}
+
+.ait-saved-list-input .setting-item-control input {
+	width: 100%;
+	min-width: 0;
+}
+
+.ait-saved-list-input .ait-input-alias {
+	flex: 1 1 140px;
+}
+
+.ait-saved-list-input .ait-input-value {
+	flex: 2 1 220px;
+}
+
+.ait-saved-list-input .ait-input-apikey {
+	flex: 2 1 160px;
+}
+
+.ait-saved-list-input .ait-input-maxtokens {
+	flex: 1 1 120px;
+}
+
+.ait-saved-list-input .ait-input-apitype {
+	flex: 1 1 140px;
+	min-width: 0;
+}
+
+.ait-saved-list-texts {
+	flex: 1;
+	min-width: 0;
+}
+
+.ait-saved-list-url {
+	color: var(--text-muted);
+	font-size: 0.85em;
+	overflow-wrap: anywhere;
 }
 
 /* Promotional Links */

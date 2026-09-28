@@ -1,18 +1,20 @@
 {
 	"compilerOptions": {
 		"strict": true,
-		"baseUrl": ".",
 		"inlineSourceMap": true,
 		"inlineSources": true,
 		"module": "ESNext",
 		"target": "ES6",
 		"allowJs": true,
 		"noImplicitAny": true,
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"importHelpers": true,
 		"isolatedModules": true,
 		"strictNullChecks": true,
-		"lib": ["es2022", "DOM", "ES5", "ES6", "ES7"]
+		"lib": ["es2022", "DOM", "ES5", "ES6", "ES7"],
+		"paths": {
+			"templater-obsidian/src/*": ["./src/types/templater/src/*"]
+		}
 	},
-	"include": ["**/*.ts", "src/types.d.ts"]
+	"include": ["src/**/*.ts"]
 }

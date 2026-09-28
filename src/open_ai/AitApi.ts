@@ -3,15 +3,18 @@
 import OpenAI from "openai";
 import type { ChatCompletionMessageParam } from "openai/resources";
 import { toFile } from "openai/uploads";
-import ActivityIndicator from "src/utils/ActivityIndicator";
 import type AitPlugin from "../main";
 import type { Settings } from "../settings/settings";
+import ActivityIndicator from "../utils/ActivityIndicator";
 import ChatBuilder from "./ChatBuilder";
 
 declare global {
 	interface Window {
 		ait?: {
-			availableModels: () => Promise<string[]>;
+			availableModels: (
+				baseURL?: string | null,
+				apiKey?: string | null,
+			) => Promise<string[]>;
 			chat: (
 				promptOrMessages: string | ChatCompletionMessageParam[],
 			) => Promise<string>;

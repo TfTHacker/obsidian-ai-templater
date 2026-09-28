@@ -1,25 +1,57 @@
 // Utility functions for interacting with the Templater plugin
 
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- calling external library */
 import { around } from "monkey-around";
+import type { App } from "obsidian";
 import type AitPlugin from "../main";
 import { InternalModuleAit } from "./InternalModuleAit";
+
+type ObsidianPlugins = {
+	enablePlugin: (id: string) => Promise<void>;
+	disablePlugin: (id: string) => Promise<void>;
+	getPlugin: (id: string) => unknown;
+};
+
+type TemplaterPluginLike = {
+	templater: {
+		functions_generator: {
+			internal_functions: {
+				modules_array: unknown[];
+			};
+		};
+	};
+};
 
 export const initializeTemplaterInternalModule = async (
 	plugin: AitPlugin,
 ): Promise<InternalModuleAit> => {
 	return new Promise((resolve, reject) => {
 		let retries = 30;
-		const intervalId = setInterval(() => {
-			const templater = plugin.app.plugins.getPlugin("templater-obsidian");
+		const intervalId = activeWindow.setInterval(() => {
+			const templater = (
+				plugin.app as App & { plugins: ObsidianPlugins }
+			).plugins.getPlugin("templater-obsidian") as TemplaterPluginLike;
 			if (templater) {
-				clearInterval(intervalId);
+				activeWindow.clearInterval(intervalId);
 				const internal_module = new InternalModuleAit(templater);
 				internal_module.setPlugin(plugin);
 
-				templater.templater.functions_generator.internal_functions.modules_array.push(
-					internal_module,
+				// hot-reload re-runs this on every plugin reload; retire any
+				// previous ai module first so Templater does not accumulate
+				// duplicates
+				const modules_array =
+					templater.templater.functions_generator.internal_functions
+						.modules_array;
+				const previousIndex = modules_array.findIndex(
+					(module) => (module as { name?: unknown })?.name === "ai",
 				);
+				if (previousIndex > -1) {
+					const previous = modules_array[previousIndex] as
+						| { teardown?: () => Promise<void> }
+						| undefined;
+					void previous?.teardown?.();
+					modules_array.splice(previousIndex, 1);
+				}
+				modules_array.push(internal_module);
 				internal_module
 					.init()
 					.then(() => {
@@ -38,7 +70,7 @@ export const initializeTemplaterInternalModule = async (
 						}
 					});
 			} else if (retries === 0) {
-				clearInterval(intervalId);
+				activeWindow.clearInterval(intervalId);
 				reject(new Error("Templater plugin not found after 30 seconds"));
 			} else {
 				retries--;
@@ -49,27 +81,24 @@ export const initializeTemplaterInternalModule = async (
 
 export const trackTemplater = (plugin: AitPlugin): void => {
 	plugin.register(
-		around(plugin.app.plugins, {
-			enablePlugin(oldMethod) {
-				return async function (pluginId) {
+		around((plugin.app as App & { plugins: ObsidianPlugins }).plugins, {
+			enablePlugin(oldMethod: (id: string) => Promise<void>) {
+				return async function (this: unknown, pluginId: string) {
 					if (pluginId === "templater-obsidian") {
-						// eslint-disable-next-line @typescript-eslint/no-misused-promises -- setTimeout needs to be called async
-						setTimeout(async () => {
+						activeWindow.setTimeout(async () => {
 							if (window.ait?.plugin)
 								window.ait.plugin.internalModuleAit =
 									await initializeTemplaterInternalModule(window.ait.plugin);
 						}, 1000);
 					}
-					// @ts-expect-error - monkey-around ignore this
 					return oldMethod.call(this, pluginId);
 				};
 			},
-			disablePlugin(oldMethod) {
-				return async function (pluginId) {
+			disablePlugin(oldMethod: (id: string) => Promise<void>) {
+				return async function (this: unknown, pluginId: string) {
 					if (pluginId === "templater-obsidian") {
 						if (window.ait?.plugin) window.ait.plugin.internalModuleAit = null;
 					}
-					// @ts-expect-error - monkey-around ignore this
 					return oldMethod.call(this, pluginId);
 				};
 			},

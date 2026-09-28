@@ -6,10 +6,8 @@ import type AitPlugin from "../main";
 import ActivityIndicator from "../utils/ActivityIndicator";
 
 // Integration module to add custom commands to Templater
-// This file using an interface from another library, so some eslint checks need to be disabled.
 
 export class InternalModuleAit extends InternalModule {
-	// @ts-expect-error -- adding internal module to templater
 	public name: ModuleName = "ai";
 	plugin: AitPlugin | undefined;
 
@@ -52,11 +50,8 @@ export class InternalModuleAit extends InternalModule {
 	}
 
 	async generate_content_without_properties(): Promise<string> {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- target_file is a valid property
 		if (this.config.target_file instanceof TFile) {
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access -- target_file is a valid property
 			const file = this.config.target_file;
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- target_file is a valid property
 			const fileContents = await this.plugin?.app.vault.read(file);
 			return fileContents
 				? fileContents.replace(/^---\n([\s\S]*?)\n---\n/, "")
@@ -86,8 +81,8 @@ export class InternalModuleAit extends InternalModule {
 			organization?: string | null,
 		) => {
 			const spinner = new ActivityIndicator();
-			spinner.add();
 			try {
+				spinner.add();
 				const result =
 					(await this.plugin?.openAiApi.chat(
 						promptOrMessages,

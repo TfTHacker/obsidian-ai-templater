@@ -1,5 +1,5 @@
 export const promotionalLinks = (containerEl: HTMLElement): HTMLElement => {
-	const linksDiv = containerEl.createEl("div");
+	const linksDiv = containerEl.createDiv();
 	linksDiv.classList.add("ait-promotional-links");
 	const twitterSpan = linksDiv.createDiv("coffee");
 	twitterSpan.addClass("ex-twitter-span");

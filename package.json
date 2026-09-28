@@ -1,6 +1,6 @@
 {
-	"name": "openaisdk",
-	"version": "1.0.20",
+	"name": "obsidian-ai-templater",
+	"version": "1.0.32",
 	"description": "AI for Templater plugin for Obsidian.",
 	"main": "main.js",
 	"scripts": {
@@ -8,7 +8,8 @@
 		"build": "node esbuild.config.mjs production",
 		"lint": "biome check ./src",
 		"version": "node version-bump.mjs",
-		"githubaction": "node version-github-action.mjs"
+		"githubaction": "node version-github-action.mjs",
+		"dev:vault": "AIT_OUT_DIR=/mnt/Cosas/Programas/obs/test/test/.obsidian/plugins/obsidian-ai-templater node esbuild.config.mjs"
 	},
 	"author": "TfT Hacker",
 	"license": "MIT",
@@ -25,12 +26,11 @@
 		"monkey-around": "^3.0.0",
 		"obsidian": "1.12.3",
 		"templater-obsidian": "github:SilentVoid13/Templater",
-		"ts-node": "^10.9.2",
 		"tslib": "^2.8.1",
-		"typedoc": "0.28.19",
 		"typescript": "6.0.2"
 	},
 	"dependencies": {
+		"@anthropic-ai/sdk": "^0.128.0",
 		"openai": "^6.3.0"
 	}
 }

@@ -10,5 +10,11 @@ bun.lockb
 build
 *.js.map
 
+# vault data (contains API keys, never share)
+data.json
+
 # other
 **/.DS_Store
+
+# opencode local
+.opencode/
